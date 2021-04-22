@@ -72,7 +72,7 @@ class OaipmhHarvester(HarvesterBase):
                 harvest_obj.save()
                 harvest_obj_ids.append(harvest_obj.id)
                 log.debug("Harvest obj %s created" % harvest_obj.id)
-        except urllib2.HTTPError, e:
+        except urllib2.HTTPError as e:
             log.exception(
                 'Gather stage failed on %s (%s): %s, %s'
                 % (
@@ -87,7 +87,7 @@ class OaipmhHarvester(HarvesterBase):
                 harvest_job.source.url, harvest_job
             )
             return None
-        except Exception, e:
+        except Exception as e:
             log.exception(
                 'Gather stage failed on %s: %s'
                 % (
@@ -219,7 +219,7 @@ class OaipmhHarvester(HarvesterBase):
 
             harvest_object.content = content
             harvest_object.save()
-        except Exception, e:
+        except Exception as e:
             log.exception(e)
             self._save_object_error(
                 (
@@ -345,7 +345,7 @@ class OaipmhHarvester(HarvesterBase):
             Session.commit()
 
             log.debug("Finished record")
-        except Exception, e:
+        except Exception as e:
             log.exception(e)
             self._save_object_error(
                 (
