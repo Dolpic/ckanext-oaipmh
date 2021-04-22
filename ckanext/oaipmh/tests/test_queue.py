@@ -67,7 +67,7 @@ class TestHarvestQueue(object):
 
         assert harvest_job['source_id'] == harvest_source['id'], harvest_job
 
-        assert harvest_job['status'] == u'New'
+        assert harvest_job['status'] == 'New'
 
         logic.get_action('harvest_jobs_run')(
             context,
@@ -77,7 +77,7 @@ class TestHarvestQueue(object):
         assert logic.get_action('harvest_job_show')(
             context,
             {'id': job_id}
-        )['status'] == u'Running'
+        )['status'] == 'Running'
 
         reply = consumer.basic_get(queue='ckan.harvest.gather')
 

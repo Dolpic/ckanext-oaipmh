@@ -1,6 +1,6 @@
 import logging
 import json
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import traceback
 
 from ckan.model import Session
@@ -15,8 +15,8 @@ from ckanext.harvest.model import HarvestObject
 import oaipmh.client
 from oaipmh.metadata import MetadataRegistry
 
-from metadata import oai_ddi_reader
-from metadata import oai_dc_reader
+from .metadata import oai_ddi_reader
+from .metadata import oai_dc_reader
 
 log = logging.getLogger(__name__)
 
@@ -72,7 +72,7 @@ class OaipmhHarvester(HarvesterBase):
                 harvest_obj.save()
                 harvest_obj_ids.append(harvest_obj.id)
                 log.debug("Harvest obj %s created" % harvest_obj.id)
-        except urllib2.HTTPError as e:
+        except urllib.error.HTTPError as e:
             log.exception(
                 'Gather stage failed on %s (%s): %s, %s'
                 % (
@@ -280,7 +280,7 @@ class OaipmhHarvester(HarvesterBase):
 
             mapping = self._get_mapping()
 
-            for ckan_field, oai_field in mapping.iteritems():
+            for ckan_field, oai_field in mapping.items():
                 try:
                     package_dict[ckan_field] = content[oai_field][0]
                 except (IndexError, KeyError):
@@ -375,8 +375,8 @@ class OaipmhHarvester(HarvesterBase):
     def _extract_tags_and_extras(self, content):
         extras = []
         tags = []
-        for key, value in content.iteritems():
-            if key in self._get_mapping().values():
+        for key, value in content.items():
+            if key in list(self._get_mapping().values()):
                 continue
             if key in ['type', 'subject']:
                 if type(value) is list:
