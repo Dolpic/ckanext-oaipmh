@@ -145,7 +145,7 @@ class OaipmhHarvester(HarvesterBase):
             self.force_http_get = config_json.get('force_http_get', False)
 
         except ValueError:
-            pass
+            self.credentials = None
 
     def fetch_stage(self, harvest_object):
         '''
