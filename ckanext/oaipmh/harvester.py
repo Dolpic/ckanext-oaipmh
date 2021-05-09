@@ -147,9 +147,9 @@ class OaipmhHarvester(HarvesterBase):
         except ValueError:
             self.credentials = None
             self.user = 'harvest'
-            self.set_spec = config_json.get('set', None)
-            self.md_format = config_json.get('metadata_prefix', 'oai_dc')
-            self.force_http_get = config_json.get('force_http_get', False)
+            self.set_spec = None
+            self.md_format = 'oai_dc'
+            self.force_http_get = False
 
     def fetch_stage(self, harvest_object):
         '''
