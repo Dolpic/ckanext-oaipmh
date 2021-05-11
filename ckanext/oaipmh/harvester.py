@@ -328,11 +328,11 @@ class OaipmhHarvester(HarvesterBase):
                 )
 
             # add groups from content
-            groups.extend(
-                self._extract_groups(content, context.copy())
-            )
+            #groups.extend(
+            #    self._extract_groups(content, context.copy())
+            #)
 
-            package_dict['groups'] = groups
+            #package_dict['groups'] = groups
 
             # allow sub-classes to add additional fields
             package_dict = self._extract_additional_fields(
